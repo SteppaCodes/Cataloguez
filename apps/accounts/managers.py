@@ -3,10 +3,11 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, first_name, last_name, email, password ,**extra_fields):
+
+    def create_user(self, first_name, last_name, email, password,**extra_fields):
         if not (first_name and last_name):
             raise ValidationError("You must submit a first name and last name")
-        
+
         user = self.model(
             first_name=first_name,
             last_name=last_name,
