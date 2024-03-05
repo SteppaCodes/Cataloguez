@@ -1,0 +1,20 @@
+{% extends 'common/index.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="card" style="width:30%; margin: 100px auto 0; padding:0 30px; background-color: #009999; text-align:center; border-radius:10px 10px 0 0;" ><h2 style="color: white;">Login</h2></div>
+<div class="card" style="width:30%; margin:0 auto 100px; padding:50px;">
+    <form method="POST">
+       {% csrf_token %}
+       <div style="padding-bottom: 30px ;">
+             {{ form|crispy }}
+       </div>
+       <button type="submit" class="btn btn-primary btn-block" style="background-color: #009999;">Login</button>
+    </form>
+    <p style="padding-top:20px; margin:auto;">Not a member? <span style="color:#009999; font-weight:bold"><a href="">Sign Up</a></span></p>
+</div>
+
+{% endblock %}
