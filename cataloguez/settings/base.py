@@ -28,7 +28,8 @@ DJANGO_APPS = [
 LOCAL_APPS = [
     "apps.accounts",
     "apps.common",
-    "apps.catalogue"
+    "apps.catalogue",
+    "apps.general"
 
 ]
 

@@ -22,7 +22,7 @@
     </div>
     <nav class="navbar navbar-expand-lg" style="margin: 0 40px">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#" style="font-weight:bold">
+            <a class="navbar-brand" href="/" style="font-weight:bold">
                 <i class="fas fa-film mr-2" ></i>
                 Cataloguez
             </a>
@@ -32,16 +32,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link nav-link-1 active" aria-current="page" href="index.html">Photos</a>
+                    <a class="nav-link nav-link-1 active" aria-current="page" href="{% url 'photos' %}">Photos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-2" href="videos.html">Videos</a>
+                    <a class="nav-link nav-link-2" href="{% url 'videos' %}">Videos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-3" href="about.html">About</a>
+                    <a class="nav-link nav-link-3" href="{% url 'about' %}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-4" href="contact.html">Contact</a>
+                    <a class="nav-link nav-link-4" href="{% url 'contact' %}">Contact</a>
                 </li>
                 {% if request.user.is_authenticated %}
                  <li class="nav-item">
@@ -58,7 +58,7 @@
                 
             </ul>
             </div>
-        </div>
+        </div>        
     </nav>
     
 

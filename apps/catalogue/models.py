@@ -6,7 +6,7 @@ from apps.accounts.models import User
 class CatalogueBaseModel(BaseModel):
     title = models.CharField(max_length=300)
     description = models.TextField()
-    tag = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag)
 
     class Meta:
         abstract = True

@@ -33,7 +33,6 @@ class RegisterView(View):
         return render(request, 'accounts/register.html', context)
 
 
-
 class LoginView(View):
     def get(self, request):
         form = LoginForm()
@@ -56,5 +55,6 @@ class LoginView(View):
           return redirect("/")
 
         return render(request, 'accounts/login.html')
+
 
 

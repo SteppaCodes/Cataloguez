@@ -9,7 +9,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('admin/logout/', auth_views.LogoutView.as_view(), name='admin_logout'),
     path("", include("apps.catalogue.urls")),
-    path("accounts/", include("apps.accounts.urls"))
+    path("accounts/", include("apps.accounts.urls")),
+    path('', include("apps.general.urls"))
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

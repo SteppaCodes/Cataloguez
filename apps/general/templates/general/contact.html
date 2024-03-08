@@ -1,0 +1,80 @@
+{% extends 'common/index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% include 'common/hero.html' %}
+    <div class="container-fluid tm-mt-60">
+        <div class="row tm-mb-50">
+            <div class="col-lg-4 col-12 mb-5">
+                <h2 class="tm-text-primary mb-5">Contact Page</h2>
+                
+                <form method="POST">
+                    {% csrf_token %}
+                   <div style="padding-bottom: 30px ;">
+                     {{ form|crispy }}
+                   </div>
+                   <div class="form-group tm-text-right">
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </div>
+                </form>            
+            </div>
+            <div class="col-lg-4 col-12 mb-5">
+                <div class="tm-address-col">
+                    <h2 class="tm-text-primary mb-5">Our Address</h2>
+                    
+                    <address class="tm-text-gray tm-mb-50">
+                         {{site.address}}
+                    </address>
+                    <ul class="tm-contacts">
+                        <li>
+                            <a href="#" class="tm-text-gray">
+                                <i class="fas fa-envelope"></i>
+                                Email:  {{site.email}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="tm-text-gray">
+                                <i class="fas fa-phone"></i>
+                                Tel: {{site.phone}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="tm-text-gray">
+                                <i class="fas fa-globe"></i>
+                                URL:  {{site.website}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>                
+            </div>
+            <div class="col-lg-4 col-12">
+                <h2 class="tm-text-primary mb-5">Our Location</h2>
+                <!-- Map -->
+                <div class="mapouter mb-4">
+                    <div class="gmap-canvas">
+                        <iframe width="100%" height="520" id="gmap-canvas"
+                            src="{{site.maps_url}}"
+                            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                    </div>
+                </div>               
+            </div>
+        </div>
+        <div class="row tm-mb-74 tm-people-row">
+            {% for member in members %}
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-5">
+                <img src="img/people-1.jpg" alt="Image" class="mb-4 img-fluid">
+                <h2 class="tm-text-primary mb-4">{{member.name}}</h2>
+                <h3 class="tm-text-secondary h5 mb-4">{{member.role}}</h3>
+                <p class="mb-4">
+                    {{member.desc}}
+                </p>
+                <ul class="tm-social pl-0 mb-0">
+                    <li><a href="{{member.fb}}"><i class="fab fa-facebook"></i></a></li>
+                    <li><a href="{{member.x}}"><i class="fab fa-x"></i></a></li>
+                    <li><a href="{{member.ln}}"><i class="fab fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+            {% endfor %}
+            
+
+{% endblock %}
