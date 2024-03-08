@@ -11,24 +11,17 @@ from  .forms import MessageForm
 
 class AboutPageView(View):
     def get(self, request):
-        sitedetail, created = SiteDetail.objects.get_or_create()
-
-        context = {
-            "site":sitedetail, 
-                   }
-        return render(request, 'general/about.html', context)
+        return render(request, 'general/about.html')
 
 
 class ContactPageView(View):
     def get(self, request):
         members = TeamMember.objects.all()
-        site, created = SiteDetail.objects.get_or_create()
         
         form = MessageForm()
 
         context = {
             "members":members,
-            "site":site,
             "form":form
         }
         return render(request, "general/contact.html", context)
