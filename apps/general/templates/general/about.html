@@ -3,7 +3,7 @@
 
 {% block content %}
 {% include 'common/hero.html' %}
-    <div class="container-fluid tm-mt-60">
+    <div class="container-fluid tm-mt-60" style="padding: 0 40px;">
         <div class="row mb-4">
             <h2 class="col-12 tm-text-primary">
                 About {{site.name}}
@@ -11,7 +11,7 @@
         </div>
         <div class="row tm-mb-74 tm-row-1640">            
             <div class="col-lg-5 col-md-6 col-12 mb-3">
-                <img src="img/about.jpg" alt="Image" class="img-fluid">
+                <img src="{% static 'img/about.jpg' %}" alt="Image" class="img-fluid">
             </div>
             <div class="col-lg-7 col-md-6 col-12">
                 <div class="tm-about-img-text">
@@ -50,7 +50,7 @@
         </div> <!-- row -->
         <div class="row tm-mb-50">
             <div class="col-md-4 col-12">
-                <div class="tm-about-2-col">
+                <div class="tm-about-2-col" style="margin:0 auto">
                     <div class="tm-about-icon-container mb-5">
                         <i class="fas fa-desktop fa-3x tm-text-primary"></i>
                     </div>                
