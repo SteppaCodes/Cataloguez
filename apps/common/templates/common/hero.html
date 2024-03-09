@@ -27,7 +27,7 @@
                     </button>
                 </form>
                 {% if request.user.is_authenticated %}
-                <button type="submit" id="upload-btn" class="btn btn-outline-success tm-search-btn"><i id="icon" class="fas fa-upload"></i></button>
+                <a href="{% url 'upload-request' %}"><button type="submit" id="upload-btn" class="btn btn-outline-success tm-search-btn"><i id="icon" class="fas fa-upload"></i></button></a>
                 {% endif %}
     </div>
     

@@ -4,7 +4,9 @@ from .views import (
     PhotoListView, 
     PhotoDetalView,
     VideosListView,
-    TagDetailView
+    TagDetailView,
+    UploadMediaRequestView,
+    UploadMediaView
     )
 
 urlpatterns = [
@@ -13,5 +15,8 @@ urlpatterns = [
 
     path("videos/", VideosListView.as_view(), name="videos"),
 
-    path("tag/<id>", TagDetailView.as_view(), name="tag-detail")
+    path("tag/<id>", TagDetailView.as_view(), name="tag-detail"),
+
+    path('upload-media/', UploadMediaRequestView.as_view(), name='upload-request'),
+    path('upload/<str:type>', UploadMediaView.as_view(), name='upload'),
 ]
