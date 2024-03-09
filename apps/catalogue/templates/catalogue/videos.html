@@ -1,28 +1,24 @@
 {% extends 'common/index.html' %}
-{% load static %}
-
+{% load static %} 
 
 {% block content %}
-    <!-- Page Loader -->
-    <div id="loader-wrapper">
-        <div id="loader"></div>
-
-        <div class="loader-section section-left"></div>
-        <div class="loader-section section-right"></div>
-
-    </div>
 
     <div class="tm-hero d-flex justify-content-center align-items-center" id="tm-video-container">
+         {% if request.user.is_authenticated %}
+           <a href="{% url 'upload-request' %}"><button type="submit" id="upload-btn" class="btn btn-outline-success tm-search-btn"><i id="icon" class="fas fa-upload"></i></button></a>
+        {% endif %}
         <video autoplay muted loop id="tm-video">
             <source src="{% static 'video/hero.mp4' %}" type="video/mp4">
         </video>  
         <i id="tm-video-control-button" class="fas fa-pause"></i>
+        
         <form class="d-flex position-absolute tm-search-form">
             <input class="form-control tm-search-input" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success tm-search-btn" type="submit">
                 <i class="fas fa-search"></i>
             </button>
         </form>
+        
     </div>
 
     <div class="container-fluid tm-container-content tm-mt-60" style="margin: 0 40px">

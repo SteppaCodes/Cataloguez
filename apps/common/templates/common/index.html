@@ -9,6 +9,22 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+    
+    <style>
+       #upload-btn {
+    padding-left:50px;
+    padding-right:100px;
+    background-color:#fff;
+    color:#009999;
+    border: solid #009999 4px;
+    border-radius: 20px;
+    }
+
+#icon {
+    padding-left:14px
+}
+
+</style>
 
 </head>
 <body>
@@ -47,6 +63,7 @@
                  <li class="nav-item">
                     <a class="nav-link nav-link-4" href="{% url 'login' %}">Logout</a>
                 </li>
+                    <a href="{% url 'upload-request' %}"><button type="submit" id="upload-btn" class="btn btn-outline-success tm-search-btn"><i id="icon" class="fas fa-upload"></i></button></a>
                 {% else %}
                 <li class="nav-item">
                     <a class="nav-link nav-link-4" href="{% url 'login' %}">Login</a>
