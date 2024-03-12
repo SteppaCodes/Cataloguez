@@ -14,7 +14,9 @@
             
             <div class="col-6 d-flex justify-content-end align-items-center">
                 <form action="" class="tm-text-primary">
-                    Page <input type="text" value="1" size="1" class="tm-input-paging tm-text-primary"> of 200
+                    {% if page_obj.number != page_obj.paginator.num_pages|add:'-1' %}
+                    Page <input type="text" value="1" size="1" class="tm-input-paging tm-text-primary"> of {{page_obj.paginator.num_pages}}
+                    {% endif %}
                 </form>
             </div>
         </div>

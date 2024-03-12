@@ -1,19 +1,22 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
 
 from .models import Photo, Video, Tag
 from .forms import PhotoForm, VideoForm
 
+import sweetify
 
-class PhotoListView(View):
-    def get(self, request):
-        photos = Photo.objects.all()
 
-        context = {
-            "photos": photos
-        }
-        return render(request, "catalogue/photos.html", context)
+class PhotoListView(ListView):
+    model = Photo
+    paginate_by = 2
+    template_name = 'catalogue/photos.html'
+    context_object_name = 'photos'
+
 
 
 class PhotoDetalView(View):
@@ -31,8 +34,6 @@ class PhotoDetalView(View):
 class VideosListView(View):
     def get(self, request):
         videos = Video.objects.all()
-
-
         context = {
             'videos':videos
         }
@@ -83,9 +84,12 @@ class UploadMediaView(View):
         if form.is_valid():
             media = form.save(commit=False)
             media.user = request.user
-            print(media.img)
             media.save()
-            
+            sweetify.success(request, 
+                             title="sent",
+                             text="Your Message was sent successfully",
+                             timer=300000
+            )
             media.tags.set(form.cleaned_data['tags'])
             return redirect('photos')
 

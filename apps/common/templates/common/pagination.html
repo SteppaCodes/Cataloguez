@@ -1,13 +1,28 @@
 <div class="row tm-mb-90">
-            <div class="col-12 d-flex justify-content-between align-items-center tm-paging-col">
-                <a href="javascript:void(0);" class="btn btn-primary tm-btn-prev mb-2 disabled">Previous</a>
+            {% if is_paginated %}
+            <div class="col-12 d-flex justify-content-center align-items-center tm-paging-col">
+                {% if page_obj.has_previous  %}
+                <a href="?page={{page_obj.previous_page_number}}" class="btn btn-primary tm-btn-prev mb-2">Previous</a>
+                
                 <div class="tm-paging d-flex">
-                    <a href="javascript:void(0);" class="active tm-paging-link">1</a>
-                    <a href="javascript:void(0);" class="tm-paging-link">2</a>
-                    <a href="javascript:void(0);" class="tm-paging-link">3</a>
-                    <a href="javascript:void(0);" class="tm-paging-link">4</a>
+                    {% if page_obj.number != 2 %}
+                    <a href="?page=1" class=" tm-paging-link">1</a>
+                    {% endif %}
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <a href="?page={{num}}" class="active tm-paging-link">{{num}}</a>
+                    {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+                    <a href="?page={{num}}" class="tm-paging-link">{{num}}</a>
+                    {% endif %}
+                    {% endfor %}
+
                 </div>
-                <a href="javascript:void(0);" class="btn btn-primary tm-btn-next">Next Page</a>
-            </div>            
+                {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}" class="btn btn-primary tm-btn-next">Next Page</a>
+
+                {% endif %}
+            </div>      
+            {% endif %}      
         </div>
     </div> 

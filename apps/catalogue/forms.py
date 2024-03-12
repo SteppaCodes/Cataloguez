@@ -8,7 +8,6 @@ class PhotoForm(forms.ModelForm):
         fields = ["title", "description", "img", "tags"]
 
 
-
 class VideoForm(forms.ModelForm):
     class Meta:
         model = Video

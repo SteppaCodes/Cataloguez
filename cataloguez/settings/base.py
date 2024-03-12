@@ -37,13 +37,15 @@ THIRD_PARTY_APPS = [
     'cloudinary',
     "whitenoise",
     "crispy_forms",
-    "crispy_bootstrap5"
+    "crispy_bootstrap5",
+    'sweetify'
 
 ]
 
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
+SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 AUTH_USER_MODEL = 'accounts.User'

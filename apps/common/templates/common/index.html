@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+    <script src="{% static 'js/toast.js' %}"></script>
     
     <style>
        #upload-btn {
@@ -80,6 +81,16 @@
     
 
     {% block content %}
+        {% if messages %}
+            {% for message in messages %}
+            <script>
+                Toast.fire({
+                icon: '{{ message.level_tag }}',
+                title: '{{ message }}'
+               })
+            </script>
+    {% endfor %}
+  {% endif %}
 
     {% endblock %}
 
@@ -127,5 +138,9 @@
             $('body').addClass('loaded');
         });
     </script>
+
+    {% load sweetify %}
+    {% sweetify %}
+
 </body>
 </html>
