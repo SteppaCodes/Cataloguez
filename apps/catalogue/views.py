@@ -30,6 +30,8 @@ class PhotoListView(ListView):
 class PhotoDetalView(View):
     def get(self, request, id):
         photo = get_object_or_404(Photo, id=id)
+        photo.views += 1
+        photo.save()
         tags = photo.tags.all()
 
         context = {
@@ -52,12 +54,13 @@ class TagDetailView(View):
         #fix this
         photos = Photo.objects.filter(tags=tag)
         videos = Video.objects.filter(tags=tag)
-
+        media_count = photos.count() + videos.count()
 
         context = {
             "tag":tag,
             "photos":photos,
-            "videos":videos
+            "videos":videos,
+            "count":media_count
         }
         return render(request, 'catalogue/tag-medias.html', context)
 

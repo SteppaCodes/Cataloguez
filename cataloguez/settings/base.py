@@ -38,8 +38,8 @@ THIRD_PARTY_APPS = [
     "whitenoise",
     "crispy_forms",
     "crispy_bootstrap5",
-    'sweetify'
-
+    'sweetify',
+    'debug_toolbar'
 ]
 
 
@@ -51,6 +51,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 AUTH_USER_MODEL = 'accounts.User'
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
