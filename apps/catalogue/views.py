@@ -10,13 +10,21 @@ from .forms import PhotoForm, VideoForm
 
 import sweetify
 
+def _get_format_(request, key):
+        # Acces the file
+        file = request.FILES
+        # Get the file name
+        name = file[key].name
+        # Split the nmme where theres a . and get the value of the index 1 (this should contain the file format)
+        format = name.split(".")[1]
+        return format
+
 
 class PhotoListView(ListView):
     model = Photo
     paginate_by = 2
     template_name = 'catalogue/photos.html'
     context_object_name = 'photos'
-
 
 
 class PhotoDetalView(View):
@@ -59,8 +67,7 @@ class UploadMediaRequestView(View):
         return render(request, 'catalogue/upload-type.html')
 
 
-
-class UploadMediaView(View):
+class UploadMediaView(View):    
     def get(self, request, type):
         
         if type == "photo":
@@ -76,18 +83,22 @@ class UploadMediaView(View):
     def post(self, request, type):
         if type == "photo":
             form = PhotoForm(request.POST, request.FILES)
+            format = _get_format_(request=request, key="img")
         else:
             form = VideoForm(request.POST, request.FILES)
+            format = _get_format_(request=request, key="vid")
 
         if form.is_valid():
             media = form.save(commit=False)
             media.user = request.user
+            media.format=format
             media.save()
             sweetify.success(request, 
                              title="sent",
                              text="Your Message was sent successfully",
                              timer=300000
             )
+            # create the manytomany relationship for each tag selected
             media.tags.set(form.cleaned_data['tags'])
             return redirect('photos')
 
@@ -95,3 +106,4 @@ class UploadMediaView(View):
             "form":form
         }
         return render(request, 'catalogue/upload-media.html', context)
+

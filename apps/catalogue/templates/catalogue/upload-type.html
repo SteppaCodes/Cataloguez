@@ -1,38 +1,38 @@
 {% extends 'common/index.html' %}
 
-{% load static  %}
+{% load static %}
 
 {% block content %}
 
 <style>
   .choice-h3 {
-    margin:70px 0;
-    text-align:center;
-    fomt-weight:bold;
-    width:100%;
+    margin: 70px 0;
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
   }
+
   h4.choice-h4 {
-    text-align:center;
-    margin:10px;
+    text-align: center;
+    margin: 10px;
   }
 
   .btn {
     background-color: white;
-    color:#009999;
+    color: #009999;
     border: 2px solid #009999;
   }
-
 </style>
 
-<div class="card" style="width:50%; margin:0 auto 100px; padding:50px;">
-       <h3 class="choice-h3">Please choose what type of file you want to upload</h3>
-       <a href="{% url 'upload' 'photo' %}">
-              <button type="submit" class="btn btn-primary btn-block"  >Photo</button>
-       </a>
-       <h4 class="choice-h4">Or</h4>
-       <a href="{% url 'upload' 'video' %}">
-             <button type="submit" class="btn btn-primary btn-block">Video</button>
-        </a>
-    
+<div class="card" style="width:50%; margin:70px auto 100px; padding:50px;">
+  <h3 class="choice-h3">Please choose what type of file you want to upload</h3>
+  <a href="{% url 'upload' 'photo' %}">
+    <button type="submit" class="btn btn-primary btn-block">Photo</button>
+  </a>
+  <h4 class="choice-h4">Or</h4>
+  <a href="{% url 'upload' 'video' %}">
+    <button type="submit" class="btn btn-primary btn-block">Video</button>
+  </a>
+
 </div>
 {% endblock %}

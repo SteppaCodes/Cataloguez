@@ -7,6 +7,7 @@ class CatalogueBaseModel(BaseModel):
     title = models.CharField(max_length=300)
     description = models.TextField()
     tags = models.ManyToManyField(Tag)
+    format = models.CharField(max_length= 10, null=True, blank=True)
 
     class Meta:
         abstract = True
