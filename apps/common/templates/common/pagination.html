@@ -1,28 +1,37 @@
 <div class="row tm-mb-90">
             {% if is_paginated %}
             <div class="col-12 d-flex justify-content-center align-items-center tm-paging-col">
-                {% if page_obj.has_previous  %}
-                <a href="?page={{page_obj.previous_page_number}}" class="btn btn-primary tm-btn-prev mb-2">Previous</a>
-                
-                <div class="tm-paging d-flex">
-                    {% if page_obj.number != 2 %}
-                    <a href="?page=1" class=" tm-paging-link">1</a>
-                    {% endif %}
+            {% if page_obj.has_previous %}
+                <!-- If there's a previous page, display an active "Previous" button -->
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-primary tm-btn-prev mb-2">Previous</a>
+            {% else %}
+                <!-- If there's no previous page, display a disabled "Previous" button -->
+                <a href="#" class="btn btn-primary tm-btn-prev mb-2 disabled">Previous</a>
+            {% if page_obj.number != 1 %}
+                    <!-- Display page number 1 if the current page is not 1 -->
+                    <a href="?page=1" class="tm-paging-link">1</a>
                 {% endif %}
+            {% endif %}
+
+            <div class="tm-paging d-flex">
+                
                 {% for num in page_obj.paginator.page_range %}
                     {% if page_obj.number == num %}
-                    <a href="?page={{num}}" class="active tm-paging-link">{{num}}</a>
+                        <a href="?page={{ num }}" class="tm-paging-link active">{{ num }}</a>
                     {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
-                    <a href="?page={{num}}" class="tm-paging-link">{{num}}</a>
+                            <a href="?page={{ num }}" class="tm-paging-link">{{ num }}</a>                     
                     {% endif %}
-                    {% endfor %}
+                {% endfor %}
+            </div>
 
-                </div>
-                {% if page_obj.has_next %}
-                <a href="?page={{page_obj.next_page_number}}" class="btn btn-primary tm-btn-next">Next Page</a>
-
-                {% endif %}
-            </div>      
-            {% endif %}      
+            {% if page_obj.has_next %}
+                <!-- If there's a next page, display an active "Next" button -->
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-primary tm-btn-next mb-2">Next</a>
+            {% else %}
+                <!-- If there's no next page, display a disabled "Next" button -->
+                <a href="#" class="btn btn-primary tm-btn-next mb-2 disabled">Next</a>
+            {% endif %}
         </div>
+        {% endif %}
+
     </div> 

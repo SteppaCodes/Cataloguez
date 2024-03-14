@@ -4,9 +4,7 @@
 {% block content %}
 
     <div class="tm-hero d-flex justify-content-center align-items-center" id="tm-video-container">
-         {% if request.user.is_authenticated %}
-           <a href="{% url 'upload-request' %}"><button type="submit" id="upload-btn" class="btn btn-outline-success tm-search-btn"><i id="icon" class="fas fa-upload"></i></button></a>
-        {% endif %}
+       
         <video autoplay muted loop id="tm-video">
             <source src="{% static 'video/hero.mp4' %}" type="video/mp4">
         </video>  
@@ -54,26 +52,10 @@
         </div>
          
         </div> <!-- row -->
-        <div class="row tm-mb-90">
-            <div class="col-12 d-flex justify-content-between align-items-center tm-paging-col">
-                <a href="javascript:void(0);" class="btn btn-primary tm-btn-prev mb-2 disabled">Previous</a>
-                <div class="tm-paging d-flex">
-                    <a href="javascript:void(0);" class="active tm-paging-link">1</a>
-                    <a href="javascript:void(0);" class="tm-paging-link">2</a>
-                    <a href="javascript:void(0);" class="tm-paging-link">3</a>
-                    <a href="javascript:void(0);" class="tm-paging-link">4</a>
-                </div>
-                <a href="javascript:void(0);" class="btn btn-primary tm-btn-next">Next Page</a>
-            </div>            
-        </div>
-    </div> <!-- container-fluid, tm-container-content -->
-
+        
     
-    <script src="{% static 'js/plugins.js' %}"></script>
     <script>
-        $(window).on("load", function() {
-            $('body').addClass('loaded');
-        });
+      
 
         $(function(){
             /************** Video background *********/

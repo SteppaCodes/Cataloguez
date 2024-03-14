@@ -31,13 +31,11 @@ class PhotoDetalView(View):
         return render(request, "catalogue/photo-detail.html", context)
 
 
-class VideosListView(View):
-    def get(self, request):
-        videos = Video.objects.all()
-        context = {
-            'videos':videos
-        }
-        return render(request, "catalogue/videos.html", context)
+class VideosListView(ListView):
+    model = Video
+    paginate_by = 2
+    template_name = 'catalogue/videos.html'
+    context_object_name = 'videos'
 
 
 class TagDetailView(View):
