@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -6,6 +7,7 @@ from django.core.exceptions import ValidationError
 
 from .forms import LoginForm, RegisterForm
 from apps.accounts.models import User
+from .mixins import LogoutRequiredMixin
 
 class RegisterView(View):
     def get(self, request):
@@ -57,4 +59,8 @@ class LoginView(View):
         return render(request, 'accounts/login.html')
 
 
+class LogoutUserView(View, LogoutRequiredMixin):
+    def get(self, request):
+        logout(request)
+        return redirect(reverse("login"))
 
