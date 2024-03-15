@@ -2,58 +2,63 @@
 {% load static %}
 
 {% block content %}
-    {% include 'common/hero.html' %}
-    <div class="container-fluid tm-container-content tm-mt-60">
-        <div class="row mb-4">
-            <h2 class="col-12 tm-text-primary" style="font-weight:bold;">{{photo.title}}</h2>
+{% include 'common/hero.html' %}
+<div class="container-fluid tm-container-content tm-mt-60">
+    <div class="row mb-4">
+        <h2 class="col-12 tm-text-primary" style="font-weight:bold;">{{photo.title}}</h2>
+    </div>
+    <div class="row tm-mb-90">
+        <div class="col-xl-8 col-lg-7 col-md-6 col-sm-12">
+            <img src="{{photo.image_url}}" alt="Image" class="img-fluid"
+                style="width:100%; image-rendering: pixelated; object-fit: cover;">
         </div>
-        <div class="row tm-mb-90">            
-            <div class="col-xl-8 col-lg-7 col-md-6 col-sm-12">
-                <img src="{{photo.image_url}}" alt="Image" class="img-fluid" style="width:100%; image-rendering: pixelated; object-fit: cover;">
-            </div>
-            <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
-                <div class="tm-bg-gray tm-video-details">
-                    <p class="mb-4">
-                        {{photo.description}}
-                    </p>
-                    <div class="text-center mb-5">
-                        <a href="#" class="btn btn-primary tm-btn-big">Download</a>
-                    </div>                    
-                    <div class="mb-4 d-flex flex-wrap">
-                        <div class="mr-4 mb-2">
-                            <span class="tm-text-gray-dark">Dimension: </span><span class="tm-text-primary">1920x1080</span>
-                        </div>
-                        <div class="mr-4 mb-2">
-                            <span class="tm-text-gray-dark">Format: </span><span class="tm-text-primary">{{photo.format}}</span>
-                        </div>
+        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
+            <div class="tm-bg-gray tm-video-details">
+                <p class="mb-4">
+                    {{photo.description}}
+                </p>
+                <div class="text-center mb-5">
+                    <a href="#" class="btn btn-primary tm-btn-big">Download</a>
+                </div>
+                <div class="mb-4 d-flex flex-wrap">
+                    <div class="mr-4 mb-2">
+                        <span class="tm-text-gray-dark">Dimension: </span><span class="tm-text-primary">1920x1080</span>
                     </div>
-                    <div>
-                        <h3 class="tm-text-gray-dark mb-3">Tags</h3>
-                        {% for tag in tags %}
-                        <a href="{% url 'tag-detail' tag.id %}" class="tm-text-primary mr-4 mb-2 d-inline-block">{{tag.name}}</a>
-                        {% endfor %}
+                    <div class="mr-4 mb-2">
+                        <span class="tm-text-gray-dark">Format: </span><span
+                            class="tm-text-primary">{{photo.format}}</span>
                     </div>
+                </div>
+                <div>
+                    <h3 class="tm-text-gray-dark mb-3">Tags</h3>
+                    {% for tag in tags %}
+                    <a href="{% url 'tag-detail' tag.id %}"
+                        class="tm-text-primary mr-4 mb-2 d-inline-block">{{tag.name}}</a>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-        <div class="row mb-4">
-            <h2 class="col-12 tm-text-primary">
-                Related Photos
-            </h2>
-        </div>
-        <div class="row mb-3 tm-gallery">
-            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
-                <figure class="effect-ming tm-video-item">
-                    <img src="img/img-01.jpg" alt="Image" class="img-fluid">
-                    <figcaption class="d-flex align-items-center justify-content-center">
-                        <h2>Hangers</h2>
-                        <a href="#">View more</a>
-                    </figcaption>                    
-                </figure>
-                <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">16 Oct 2020</span>
-                    <span>12,460 views</span>
-                </div>
+    </div>
+    <div class="row mb-4">
+        <h2 class="col-12 tm-text-primary">
+            Related Photos
+        </h2>
+    </div>
+    {% for photo in related_photos %}
+    <div class="row mb-3 tm-gallery">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+            <figure class="effect-ming tm-video-item">
+                <img src="{{photo.image_url}}" alt="{{photo.title}} image" class="img-fluid">
+                <figcaption class="d-flex align-items-center justify-content-center">
+                    <h2>{{photo.title}}</h2>
+                    <a href="#">View more</a>
+                </figcaption>
+            </figure>
+            <div class="d-flex justify-content-between tm-text-gray">
+                <span class="tm-text-gray-light">{{photo.created_at.date|date:"d M Y"}}</span>
+                <span>{{photo.views}} views</span>
             </div>
         </div>
-{% endblock %}
+    </div>
+    {% endfor %}
+    {% endblock %}

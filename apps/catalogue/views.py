@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
+from django.db.models import Count
 
 from .models import Photo, Video, Tag
 from .forms import PhotoForm, VideoForm
@@ -34,9 +35,18 @@ class PhotoDetalView(View):
         photo.save()
         tags = photo.tags.all()
 
+        # Create a list of the id of all the tags used in the photo
+        photo_tag_ids = tags.values_list('id', flat=True)
+        # Get all photos that have the tags in the photo_tag_ids list excluding the photo itself
+        related_photos = Photo.objects.filter(tags__in=photo_tag_ids).exclude(id=id).distinct()
+        # Count the number of tags that are the same in similar photos and return them from highest to lowest
+        related_photos = related_photos.annotate(same_tags=Count('tags')).order_by('-same_tags')
+
+
         context = {
             'photo':photo,
-            "tags":tags
+            "tags":tags,
+            "related_photos": related_photos
         }
         return render(request, "catalogue/photo-detail.html", context)
 
