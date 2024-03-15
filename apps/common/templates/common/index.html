@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,24 +11,24 @@
     <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
     <script src="{% static 'js/toast.js' %}"></script>
-    
+
     <style>
-       #upload-btn {
-    padding-left:50px;
-    padding-right:100px;
-    background-color:#fff;
-    color:#009999;
-    border: solid #009999 4px;
-    border-radius: 20px;
-    }
+        #upload-btn {
+            padding-left: 50px;
+            padding-right: 100px;
+            background-color: #fff;
+            color: #009999;
+            border: solid #009999 4px;
+            border-radius: 20px;
+        }
 
-#icon {
-    padding-left:14px
-}
-
-</style>
+        #icon {
+            padding-left: 14px
+        }
+    </style>
 
 </head>
+
 <body>
     <!-- Page Loader -->
     <div id="loader-wrapper">
@@ -40,57 +41,67 @@
     <nav class="navbar navbar-expand-lg" style="margin: 0 40px">
         <div class="container-fluid">
             <a class="navbar-brand" href="/" style="font-weight:bold">
-                <i class="fas fa-film mr-2" ></i>
+                <i class="fas fa-film mr-2"></i>
                 Cataloguez
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link nav-link-1 active" aria-current="page" href="{% url 'photos' %}">Photos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-2" href="{% url 'videos' %}">Videos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-3" href="{% url 'about' %}">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-4" href="{% url 'contact' %}">Contact</a>
-                </li>
-                {% if request.user.is_authenticated %}
-                 <li class="nav-item">
-                    <a class="nav-link nav-link-4" href="{% url 'login' %}">Logout</a>
-                </li>
-                    <a href="{% url 'upload-request' %}"><button type="submit" id="upload-btn" class="btn btn-outline-success tm-search-btn"><i id="icon" class="fas fa-upload"></i></button></a>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link nav-link-4" href="{% url 'login' %}">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-4" href="{% url 'register' %}">Sign Up</a>
-                </li>
-                {% endif %}
-                
-            </ul>
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    {% url 'photos' as home_url %}
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-1 {% if request.path == home_url %}active aria-current='page'{% endif %}"
+                            href="{% url 'photos' %}">Photos</a>
+                    </li>
+                    {% url 'videos' as videos_url %}
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-2 {% if request.path == videos_url %}active aria-current='page'{% endif %}"
+                            href="
+                            {% url 'videos' %}">Videos</a>
+                    </li>
+                    {% url 'about' as about_url %}
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-3 {% if request.path == about_url %}active aria-current='page'{% endif %}"
+                            href="{% url 'about' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-4" href="{% url 'contact' %}">Contact</a>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-4" href="{% url 'login' %}">Logout</a>
+                    </li>
+                    <a href="{% url 'upload-request' %}"><button type="submit" id="upload-btn"
+                            class="btn btn-outline-success tm-search-btn"><i id="icon"
+                                class="fas fa-upload"></i></button></a>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-4" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-4" href="{% url 'register' %}">Sign Up</a>
+                    </li>
+                    {% endif %}
+
+                </ul>
             </div>
-        </div>        
+        </div>
     </nav>
-    
+
 
     {% block content %}
-        {% if messages %}
-            {% for message in messages %}
-            <script>
-                Toast.fire({
-                icon: '{{ message.level_tag }}',
-                title: '{{ message }}'
-               })
-            </script>
+    {% if messages %}
+    {% for message in messages %}
+    <script>
+        Toast.fire({
+            icon: '{{ message.level_tag }}',
+            title: '{{ message }}'
+        })
+    </script>
     {% endfor %}
-  {% endif %}
+    {% endif %}
 
     {% endblock %}
 
@@ -109,7 +120,7 @@
                         <li><a href="{% url 'register' %}">Sign Up</a></li>
                         <li><a href="{{site.website}}">Our Site</a></li>
                         <li><a href="{% url 'contact' %}">Contact</a></li>
-                        
+
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12 px-5 mb-5">
@@ -127,14 +138,14 @@
                 <div class="col-lg-8 col-md-7 col-12 px-5 mb-3">
                     &copy; Copyright 2024 {{site.name}} Company. All rights reserved.
                 </div>
-                
+
             </div>
         </div>
     </footer>
-    
+
     <script src="{% static 'js/plugins.js' %}"></script>
     <script>
-        $(window).on("load", function() {
+        $(window).on("load", function () {
             $('body').addClass('loaded');
         });
     </script>
@@ -143,4 +154,5 @@
     {% sweetify %}
 
 </body>
+
 </html>
