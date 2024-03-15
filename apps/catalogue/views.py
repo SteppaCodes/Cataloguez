@@ -23,7 +23,7 @@ def _get_format_(request, key):
 
 class PhotoListView(ListView):
     model = Photo
-    paginate_by = 2
+    paginate_by = 10
     template_name = 'catalogue/photos.html'
     context_object_name = 'photos'
 
@@ -53,7 +53,7 @@ class PhotoDetalView(View):
 
 class VideosListView(ListView):
     model = Video
-    paginate_by = 2
+    paginate_by = 10
     template_name = 'catalogue/videos.html'
     context_object_name = 'videos'
 

@@ -12,6 +12,7 @@ class CatalogueBaseModel(BaseModel):
 
     class Meta:
         abstract = True
+        ordering = ["-views"]
 
 
 class Photo(CatalogueBaseModel):
