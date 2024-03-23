@@ -5,11 +5,17 @@ from django.views import View
 from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
 from django.db.models import Count
+from django.http import FileResponse
+from django.db.models import Q
 
 from .models import Photo, Video, Tag
 from .forms import PhotoForm, VideoForm
+from apps.accounts.mixins import LoginRequiredMixin
 
 import sweetify
+import requests
+import cloudinary
+
 
 def _get_format_(request, key):
         # Acces the file
@@ -20,12 +26,33 @@ def _get_format_(request, key):
         format = name.split(".")[1]
         return format
 
+def _get_media_file_(id):
+    try:
+        file = Photo.objects.get(id=id)
+        media = "img"
+        return file, media
+    except Photo.DoesNotExist:
+        try:
+            file = Video.objects.get(id=id)
+            return file
+        except Video.DoesNotExist:
+            return None
+
 
 class PhotoListView(ListView):
     model = Photo
     paginate_by = 10
     template_name = 'catalogue/photos.html'
     context_object_name = 'photos'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        query = self.request.GET.get('query')
+        if query:
+            qs = qs.filter(
+                Q(title__icontains=query)
+            )
+        return qs
 
 
 class PhotoDetalView(View):
@@ -119,4 +146,27 @@ class UploadMediaView(View):
             "form":form
         }
         return render(request, 'catalogue/upload-media.html', context)
+
+
+class DownloadMediaView(View, LoginRequiredMixin):
+    def get(self, request, id):
+        file, media = _get_media_file_(id=id)
+
+        
+        
+        if file:
+            file_url = file.image_url if media == "img" else file.video_url
+            
+            # Fetch the file from Cloudinary
+            response = cloudinary.api.download(file_url)
+            
+            # Set the appropriate content disposition for downloading
+            response["Content-Disposition"] = f'attachment; filename="{file.file.name}"'
+            
+            # Return the file as a response
+            return response
+            
+        # Handle the case where file is not found
+        raise FileNotFoundError("File not found")    
+
 

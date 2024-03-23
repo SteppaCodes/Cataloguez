@@ -73,18 +73,20 @@
                     <li class="nav-item">
                         <a class="nav-link nav-link-4" href="{% url 'logout' %}">Logout</a>
                     </li>
-                    
+                    {% url 'upload-request' as about_url %}
                     <a href="{% url 'upload-request' %}"><button type="submit" id="upload-btn"
                             class="btn btn-outline-success tm-search-btn"><i id="icon"
                                 class="fas fa-upload"></i></button></a>
                     {% else %}
                     {% url 'login' as login_url %}
                     <li class="nav-item">
-                        <a class="nav-link nav-link-4 {% if request.path == login_url %}active aria-current='page'{% endif %}" href="{% url 'login' %}">Login</a>
+                        <a class="nav-link nav-link-4 {% if request.path == login_url %}active aria-current='page'{% endif %}"
+                            href="{% url 'login' %}">Login</a>
                     </li>
                     {% url 'register' as register_url %}
                     <li class="nav-item">
-                        <a class="nav-link nav-link-4 {% if request.path == register_url %}active aria-current='page'{% endif %}" href="{% url 'register' %}">Sign Up</a>
+                        <a class="nav-link nav-link-4 {% if request.path == register_url %}active aria-current='page'{% endif %}"
+                            href="{% url 'register' %}">Sign Up</a>
                     </li>
                     {% endif %}
 

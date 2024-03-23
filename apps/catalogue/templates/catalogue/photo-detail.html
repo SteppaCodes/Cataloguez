@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-{% include 'common/hero.html' %}
 <div class="container-fluid tm-container-content tm-mt-60">
     <div class="row mb-4">
         <h2 class="col-12 tm-text-primary" style="font-weight:bold;">{{photo.title}}</h2>
@@ -18,7 +17,7 @@
                     {{photo.description}}
                 </p>
                 <div class="text-center mb-5">
-                    <a href="#" class="btn btn-primary tm-btn-big">Download</a>
+                    <a href="#" onclick="download('{{photo.image_url}}')" class="btn btn-primary tm-btn-big">Download</a>
                 </div>
                 <div class="mb-4 d-flex flex-wrap">
                     <div class="mr-4 mb-2">
@@ -44,7 +43,7 @@
             Related Photos
         </h2>
     </div>
-    
+
     <div class="row mb-3 tm-gallery">
         {% for photo in related_photos %}
         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
@@ -63,5 +62,16 @@
         </div>
         {% endfor %}
     </div>
-    
+
+    <script>
+        function download(url) {
+            const a = document.createElement('a')
+            a.href = url
+            a.download = url.split('/').pop()
+            document.body.appendChild(a)
+            a.click()
+            document.body.removeChild(a)
+        }
+    </script>
+
     {% endblock %}

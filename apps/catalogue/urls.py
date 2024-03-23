@@ -6,7 +6,8 @@ from .views import (
     VideosListView,
     TagDetailView,
     UploadMediaRequestView,
-    UploadMediaView
+    UploadMediaView,
+    DownloadMediaView
     )
 
 urlpatterns = [
@@ -19,4 +20,6 @@ urlpatterns = [
 
     path('upload-media/', UploadMediaRequestView.as_view(), name='upload-request'),
     path('upload/<str:type>', UploadMediaView.as_view(), name='upload'),
+
+    path("download/<id>/", DownloadMediaView.as_view(), name='download')
 ]

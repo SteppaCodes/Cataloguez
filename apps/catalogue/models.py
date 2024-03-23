@@ -1,4 +1,6 @@
 from django.db import models
+from cloudinary_storage.storage import VideoMediaCloudinaryStorage
+from cloudinary_storage.validators import validate_video
 
 from apps.common.models import BaseModel, Tag
 from apps.accounts.models import User
@@ -33,7 +35,7 @@ class Photo(CatalogueBaseModel):
 
 class Video(CatalogueBaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="videos")
-    vid = models.FileField(upload_to='videos/')
+    vid = models.FileField(upload_to='videos/', storage=VideoMediaCloudinaryStorage(), validators=[validate_video])
 
     def __str__(self):
         return self.title
