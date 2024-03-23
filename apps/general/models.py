@@ -41,7 +41,9 @@ ROLE_CHOICES = (
 class TeamMember(BaseModel):
     name= models.CharField(max_length=100)
     role = models.CharField(max_length=200, choices=ROLE_CHOICES)
-    desc= models.CharField(_("description") ,max_length=300)
+    desc= models.TextField(_("description"))
+    vision = models.TextField(null=True, blank=True)
+    mission = models.TextField(null=True, blank=True)
     avatar= models.ImageField(upload_to='team/')
     
     fb = models.URLField(verbose_name=_("Facebook"), default="https://www.facebook.com")
