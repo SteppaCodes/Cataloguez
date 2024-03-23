@@ -35,6 +35,7 @@ class Photo(CatalogueBaseModel):
 class Video(CatalogueBaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="videos")
     vid = models.FileField(upload_to='videos/', storage=VideoMediaCloudinaryStorage())
+    duration = models.CharField(max_length=20, default='00:00:00')
 
     def __str__(self):
         return self.title

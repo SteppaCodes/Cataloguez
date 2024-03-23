@@ -1,5 +1,4 @@
 from typing import Any
-from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import ListView
@@ -11,32 +10,11 @@ from django.db.models import Q
 from .models import Photo, Video, Tag
 from .forms import PhotoForm, VideoForm
 from apps.accounts.mixins import LoginRequiredMixin
+from .helpers import _get_format_, _get_media_file_
 
 import sweetify
 import requests
 import cloudinary
-
-
-def _get_format_(request, key):
-        # Acces the file
-        file = request.FILES
-        # Get the file name
-        name = file[key].name
-        # Split the nmme where theres a . and get the value of the index 1 (this should contain the file format)
-        format = name.split(".")[1]
-        return format
-
-def _get_media_file_(id):
-    try:
-        file = Photo.objects.get(id=id)
-        media = "img"
-        return file, media
-    except Photo.DoesNotExist:
-        try:
-            file = Video.objects.get(id=id)
-            return file
-        except Video.DoesNotExist:
-            return None
 
 
 class PhotoListView(ListView):
@@ -83,6 +61,16 @@ class VideosListView(ListView):
     paginate_by = 10
     template_name = 'catalogue/videos.html'
     context_object_name = 'videos'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        query = self.request.GET.get('query')
+
+        if query:
+            qs = qs.filter(
+                Q(title__icontains=query)
+            )
+        return qs
 
 
 class VideoDetailView(View):
