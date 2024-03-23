@@ -134,8 +134,8 @@ class UploadMediaView(View):
             sweetify.success(
                 request,
                 title="sent",
-                text="Your Message was sent successfully",
-                timer=300000,
+                text="File Uploaded Successfully",
+                timer=3000,
             )
             # create the manytomany relationship for each tag selected
             media.tags.set(form.cleaned_data["tags"])
