@@ -26,6 +26,7 @@
                         <span>{{photo.views}} views</span>
                     </div>
                 </div>
+                
                 {% endfor %}
             </div>
             {% endif %}
@@ -51,6 +52,9 @@
                     </div>
                     {% endfor %}
                 </div>
+                {% endif %}    
+                {% if not photos and not videos %} 
+                <h4 class="tm-text-gray-light" style="margin:100px 0; text-align:center;">No media found</h4>
                 {% endif %}
             </div>
         </div>
