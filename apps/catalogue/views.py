@@ -85,6 +85,25 @@ class VideosListView(ListView):
     context_object_name = 'videos'
 
 
+class VideoDetailView(View):
+    def get(self, request, id):
+        video = get_object_or_404(Video, id=id)
+        video.views += 1
+        video.save()
+        tags = video.tags.all()
+
+        video_tag_ids = tags.values_list('id', flat=True)
+        related_videos = Video.objects.filter(tags__in=video_tag_ids).exclude(id=id).distinct()
+        related_videos = related_videos.annotate(same_tags=Count('tags')).order_by('-same_tags')
+
+        context = {
+            'video':video,
+            "tags":tags,
+            "related_videos": related_videos
+        }
+        return render(request, 'catalogue/video-detail.html', context)
+
+
 class TagDetailView(View):
     def get(self, request, id):
         tag = get_object_or_404(Tag, id=id)

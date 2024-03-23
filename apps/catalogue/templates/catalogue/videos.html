@@ -34,15 +34,17 @@
             {% for video in videos %}
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                 <figure class="effect-ming tm-video-item">
-                    <img src="img/img-01.jpg" alt="Image" class="img-fluid">
+                    <video autoplay muted loop id="tm-video">
+                        <source src="{{video.video_url}}" type="video/mp4">
+                    </video> 
                     <figcaption class="d-flex align-items-center justify-content-center">
                         <h2>{{video.title}}</h2>
-                        <a href="video-detail.html">View more</a>
+                        <a href="{% url 'video-detail' video.id %}">View more</a>
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
                     <span>{{video.created_at.date|date:"d M Y"}}</span>
-                    <span>10,460 views</span>
+                    <span>{{video.views}} views</span>
                 </div>
             </div>
             {% empty %}
