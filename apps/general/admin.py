@@ -1,11 +1,16 @@
 from django.contrib import admin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.db import models
+from django import forms
 
 from .models import SiteDetail, TeamMember, Subject, Message
 
 
 class SiteDetailAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        models.TextField: {'widget': forms.Textarea(attrs={'rows': 10, 'cols': 40})},
+    }
     def changelist_view(self, request, extra_context=None):
         obj, created = self.model.objects.get_or_create() 
 
@@ -22,7 +27,6 @@ class SiteDetailAdmin(admin.ModelAdmin):
     
     def has_delete_permission(self, request, obj=None):
         return False
-
 
 
 class MessageAdmin(admin.ModelAdmin):
