@@ -846,3 +846,6 @@ select:not([multiple]) {
     color: white;
   }
 
+.navbar-toggler {
+    background-color: red;
+}
