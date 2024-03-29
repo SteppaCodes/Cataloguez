@@ -113,9 +113,10 @@ class UploadMediaView(View):
         if type == "photo":
             form = PhotoForm()
         else:
+            type="video"
             form = VideoForm()
 
-        context = {"form": form}
+        context = {"form": form, "type":type}
         return render(request, "catalogue/upload-media.html", context)
 
     def post(self, request, type):
@@ -123,6 +124,7 @@ class UploadMediaView(View):
             form = PhotoForm(request.POST, request.FILES)
             format = _get_format_(request=request, key="img")
         else:
+            type="video"
             form = VideoForm(request.POST, request.FILES)
             format = _get_format_(request=request, key="vid")
 
@@ -141,7 +143,7 @@ class UploadMediaView(View):
             media.tags.set(form.cleaned_data["tags"])
             return redirect("photos")
 
-        context = {"form": form}
+        context = {"form": form, "type":type}
         return render(request, "catalogue/upload-media.html", context)
 
 

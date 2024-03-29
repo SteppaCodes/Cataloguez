@@ -24,15 +24,21 @@
   }
 </style>
 
-<div class="card" style="width:50%; margin:70px auto 100px; padding:50px;">
-  <h3 class="choice-h3">Please choose what type of file you want to upload</h3>
-  <a href="{% url 'upload' 'photo' %}">
-    <button type="submit" class="btn btn-primary btn-block">Photo</button>
-  </a>
-  <h4 class="choice-h4">Or</h4>
-  <a href="{% url 'upload' 'video' %}">
-    <button type="submit" class="btn btn-primary btn-block">Video</button>
-  </a>
-
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card" style="padding: 50px;">
+        <h3 class="choice-h3">Please choose what type of file you want to upload</h3>
+        <a href="{% url 'upload' 'photo' %}">
+          <button type="submit" class="btn btn-primary btn-block">Photo</button>
+        </a>
+        <h4 class="choice-h4">Or</h4>
+        <a href="{% url 'upload' 'video' %}">
+          <button type="submit" class="btn btn-primary btn-block">Video</button>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
+
 {% endblock %}

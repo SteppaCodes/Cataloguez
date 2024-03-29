@@ -5,41 +5,40 @@
 {% block content %}
 {% include 'common/hero.html' %}
 
-<div class="container-fluid tm-container-content tm-mt-60">
-    <div class="row mb-4">
-        <h2 class="col-6 tm-text-primary">
-            Latest Photos
-        </h2>
+<div class="container-fluid tm-container-content tm-mt-60" style="margin: 30px 20px;">
+  <div class="row mb-4">
+    <h2 class="col-6 tm-text-primary">
+      Latest Photos
+    </h2>
 
-        <div class="col-6 d-flex justify-content-end align-items-center">
-            <form action="" class="tm-text-primary">
-                {% if page_obj.number != page_obj.paginator.num_pages|add:'-1' %}
-                Page <input type="text" value="1" size="1" class="tm-input-paging tm-text-primary"> of
-                {{page_obj.paginator.num_pages}}
-                {% endif %}
-            </form>
-        </div>
+    <div class="col-6 d-flex justify-content-end align-items-center">
+      <form action="" class="tm-text-primary">
+        {% if page_obj.number != page_obj.paginator.num_pages|add:'-1' %}
+          Page <input type="text" value="1" size="1" class="tm-input-paging tm-text-primary"> of
+          {{page_obj.paginator.num_pages}}
+        {% endif %}
+      </form>
     </div>
-    <div class="row tm-mb-90 tm-gallery">
-        {% for photo in photos %}
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
-            <figure class="effect-ming tm-video-item">
-                <img src="{{photo.image_url}}" alt="{{photo.title}} image" class="img-fluid" style="min-width:100%; height:80%">
-                <figcaption class="d-flex align-items-center justify-content-center">
-                    <h2>{{photo.title}}</h2>
-                    <a href="{% url 'photo-detail' photo.id %}">View more</a>
-                </figcaption>
-            </figure>
-            <div class="d-flex justify-content-between tm-text-gray">
-                <span class="tm-text-gray-light">{{photo.created_at.date|date:"d M Y"}}</span>
-                <span>{{photo.views}} views</span>
-            </div>
+  </div>
+  <div class="row tm-mb-90 tm-gallery">
+    {% for photo in photos %}
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+        <figure class="effect-ming tm-video-item">
+          <img src="{{ photo.image_url }}" alt="{{ photo.title }} image" class="img-fluid" style="object-fit: cover; height: 100%; width: 100%;"> <figcaption class="d-flex align-items-center justify-content-center">
+            <h2>{{ photo.title }}</h2>
+            <a href="{% url 'photo-detail' photo.id %}">View more</a>
+          </figcaption>
+        </figure>
+        <div class="d-flex justify-content-between tm-text-gray">
+          <span class="tm-text-gray-light">{{ photo.created_at.date|date:"d M Y" }}</span>
+          <span>{{ photo.views }} views</span>
         </div>
-        {% empty %}
-        <h4 class="tm-text-gray-light" style="margin:100px 0; text-align:center;">No photos available</h4>
-        {% endfor %}
-    </div>
+      </div>
+    {% empty %}
+      <h4 class="tm-text-gray-light" style="margin:100px 0; text-align:center;">No photos available</h4>
+    {% endfor %}
+  </div>
 
-    {% include 'common/pagination.html' %}
+  {% include 'common/pagination.html' %}
 
-    {% endblock %}
+{% endblock %}

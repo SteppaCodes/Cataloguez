@@ -28,6 +28,10 @@
             border: solid #009999 4px;
             border-radius: 20px;
         }
+        
+        #upload-text {
+            display: none;
+        }
 
         #icon {
             padding-left: 14px
@@ -38,6 +42,14 @@
             z-index: 999;
         }
         }
+        #upload-btn {
+            display: none;
+
+        }
+        #upload-text {
+            display: flex;
+        }
+
         
     </style>
 
@@ -95,6 +107,11 @@
                     <li class="nav-item">
                         <a class="nav-link nav-link-4" href="{% url 'logout' %}">Logout</a>
                     </li>
+                    {% url 'upload-request' as about_url %}
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-4" href="{% url 'upload-request' %}" id="upload-text">Upload</a>
+                    </li>
+
                     {% url 'upload-request' as about_url %}
                     <a href="{% url 'upload-request' %}"><button type="submit" id="upload-btn"
                             class="btn btn-outline-success tm-search-btn"><i id="icon"
