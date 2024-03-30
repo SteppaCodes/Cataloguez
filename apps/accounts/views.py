@@ -20,8 +20,14 @@ class RegisterView(LogoutRequiredMixin, View):
     def post(self, request):
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            return redirect("login")
+            password1 = form.cleaned_data["password1"]
+            password2 = form.cleaned_data["password2"]
+            if password1 != password2:
+                # Add the password do not match to the forms errors
+                form.add_error("password2", "Passwords do not match")
+            else:
+                user = form.save()
+                return redirect("login")
         context = {"form": form}
         return render(request, "accounts/register.html", context)
 
