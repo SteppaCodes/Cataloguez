@@ -135,13 +135,14 @@ class UploadMediaView(View):
             media.save()
             sweetify.success(
                 request,
-                title="sent",
+                title="success",
                 text="File Uploaded Successfully",
                 timer=3000,
             )
             # create the manytomany relationship for each tag selected
             media.tags.set(form.cleaned_data["tags"])
-            return redirect("photos")
+            redirect_url = type + "s"
+            return redirect(redirect_url)
 
         context = {"form": form, "type":type}
         return render(request, "catalogue/upload-media.html", context)
