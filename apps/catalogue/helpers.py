@@ -9,14 +9,14 @@ def _get_format_(request, key):
         format = name.split(".")[1]
         return format
 
-def _get_media_file_(id):
+def _get_media_file_(slug):
     try:
-        file = Photo.objects.get(id=id)
+        file = Photo.objects.get(slug=slug)
         media = "img"
         return file, media
     except Photo.DoesNotExist:
         try:
-            file = Video.objects.get(id=id)
+            file = Video.objects.get(slug=slug)
             return file
         except Video.DoesNotExist:
             return None

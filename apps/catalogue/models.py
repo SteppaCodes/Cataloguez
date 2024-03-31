@@ -2,10 +2,15 @@ from django.db import models
 from cloudinary_storage.storage import VideoMediaCloudinaryStorage
 
 from apps.common.models import BaseModel, Tag
+from autoslug import AutoSlugField
 from apps.accounts.models import User
+
+def _slugify_title_(self):
+    return f"{self.title}"
 
 class CatalogueBaseModel(BaseModel):
     title = models.CharField(max_length=300)
+    slug = AutoSlugField(populate_from=_slugify_title_, null=True, blank=True, always_update=True)
     description = models.TextField()
     tags = models.ManyToManyField(Tag)
     format = models.CharField(max_length= 10, null=True, blank=True)

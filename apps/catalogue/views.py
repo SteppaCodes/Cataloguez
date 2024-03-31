@@ -32,8 +32,8 @@ class PhotoListView(ListView):
 
 
 class PhotoDetalView(View):
-    def get(self, request, id):
-        photo = get_object_or_404(Photo, id=id)
+    def get(self, request, slug):
+        photo = get_object_or_404(Photo, slug=slug)
         photo.views += 1
         photo.save()
         tags = photo.tags.all()
@@ -42,7 +42,7 @@ class PhotoDetalView(View):
         photo_tag_ids = tags.values_list("id", flat=True)
         # Get all photos that have the tags in the photo_tag_ids list excluding the photo itself
         related_photos = (
-            Photo.objects.filter(tags__in=photo_tag_ids).exclude(id=id).distinct()
+            Photo.objects.filter(tags__in=photo_tag_ids).exclude(id=photo.id).distinct()
         )
         # Count the number of tags that are the same in similar photos and return them from highest to lowest
         related_photos = related_photos.annotate(same_tags=Count("tags")).order_by(
@@ -69,15 +69,15 @@ class VideosListView(ListView):
 
 
 class VideoDetailView(View):
-    def get(self, request, id):
-        video = get_object_or_404(Video, id=id)
+    def get(self, request, slug):
+        video = get_object_or_404(Video, slug=slug)
         video.views += 1
         video.save()
         tags = video.tags.all()
 
         video_tag_ids = tags.values_list("id", flat=True)
         related_videos = (
-            Video.objects.filter(tags__in=video_tag_ids).exclude(id=id).distinct()
+            Video.objects.filter(tags__in=video_tag_ids).exclude(id=video.id).distinct()
         )
         related_videos = related_videos.annotate(same_tags=Count("tags")).order_by(
             "-same_tags"
@@ -88,12 +88,12 @@ class VideoDetailView(View):
 
 
 class TagDetailView(View):
-    def get(self, request, id):
+    def get(self, request, slug):
         query = request.GET.get("query")
         if not query:
             query = ""
 
-        tag = get_object_or_404(Tag, id=id)
+        tag = get_object_or_404(Tag, slug=slug)
         photos = Photo.objects.filter(Q(tags=tag) & Q(title__icontains=query))
         videos = Video.objects.filter(Q(tags=tag) & Q(title__icontains=query))
         media_count = photos.count() + videos.count()
@@ -135,7 +135,7 @@ class UploadMediaView(View):
             media.save()
             sweetify.success(
                 request,
-                title="success",
+                title="Success",
                 text="File Uploaded Successfully",
                 timer=3000,
             )
@@ -149,8 +149,8 @@ class UploadMediaView(View):
 
 
 class DownloadMediaView(View, LoginRequiredMixin):
-    def get(self, request, id):
-        file, media = _get_media_file_(id=id)
+    def get(self, request, slug):
+        file, media = _get_media_file_(slug=slug)
 
         if file:
             file_url = file.image_url if media == "img" else file.video_url

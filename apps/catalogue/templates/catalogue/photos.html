@@ -22,13 +22,12 @@
   </div>
   <div class="row tm-mb-90 tm-gallery">
     {% for photo in photos %}
-    
       <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
-        <figure class="effect-ming tm-video-item" style="height: 200px;">
-          <img src="{{ photo.image_url }}" alt="{{ photo.title }} image" style="width: 100%; object-fit: cover;">
-          <figcaption class="d-flex align-items-center justify-content-center" style="width: 100%; height: 100%;">
+        <figure class="effect-ming tm-video-item" style="position: relative; height: 200px;">
+          <img src="{{ photo.image_url }}" alt="{{ photo.title }} image" class="img-fluid" style="object-fit: cover; width: 100%">
+          <figcaption class="d-flex align-items-center justify-content-center" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;">
             <h2>{{ photo.title }}</h2>
-            <a href="{% url 'photo-detail' photo.id %}">View more</a>
+            <a href="{% url 'photo-detail' photo.slug %}">View more</a>
           </figcaption>
         </figure>
         <div class="d-flex justify-content-between tm-text-gray">
@@ -36,12 +35,10 @@
           <span>{{ photo.views }} views</span>
         </div>
       </div>
-      
     {% empty %}
       <h4 class="tm-text-gray-light" style="margin:100px 0; text-align:center;">No photos available</h4>
-    
+    {% endfor %}
   </div>
-  {% endfor %}
 
   {% include 'common/pagination.html' %}
 

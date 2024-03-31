@@ -26,9 +26,12 @@
             </h2>
             <div class="col-6 d-flex justify-content-end align-items-center">
                 <form action="" class="tm-text-primary">
-                    Page <input type="text" value="1" size="1" class="tm-input-paging tm-text-primary"> of 180
+                  {% if page_obj.number != page_obj.paginator.num_pages|add:'-1' %}
+                    Page <input type="text" value="1" size="1" class="tm-input-paging tm-text-primary"> of
+                    {{page_obj.paginator.num_pages}}
+                  {% endif %}
                 </form>
-            </div>
+              </div>
         </div>
         <div class="row tm-mb-90 tm-gallery">
             {% for video in videos %}
@@ -39,7 +42,7 @@
                     </video> 
                     <figcaption class="d-flex align-items-center justify-content-center">
                         <h2>{{video.title}}</h2>
-                        <a href="{% url 'video-detail' video.id %}">View more</a>
+                        <a href="{% url 'video-detail' video.slug %}">View more</a>
                     </figcaption>                    
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">

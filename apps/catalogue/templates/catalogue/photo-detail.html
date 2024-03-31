@@ -31,7 +31,7 @@
                 <div>
                     <h3 class="tm-text-gray-dark mb-3">Tags</h3>
                     {% for tag in tags %}
-                    <a href="{% url 'tag-detail' tag.id %}"
+                    <a href="{% url 'tag-detail' tag.slug %}"
                         class="tm-text-primary mr-4 mb-2 d-inline-block">{{tag.name}}</a>
                     {% endfor %}
                 </div>
@@ -51,7 +51,7 @@
                 <img src="{{photo.image_url}}" alt="{{photo.title}} image" class="img-fluid">
                 <figcaption class="d-flex align-items-center justify-content-center">
                     <h2>{{photo.title}}</h2>
-                    <a href="{% url 'photo-detail' photo.id %}">View more</a>
+                    <a href="{% url 'photo-detail' photo.slug %}">View more</a>
                 </figcaption>
             </figure>
             <div class="d-flex justify-content-between tm-text-gray">
